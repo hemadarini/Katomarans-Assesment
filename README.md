@@ -355,7 +355,8 @@ Full payload schemas and response formats are documented in `Backend/api_documen
 
 ### Analytics Page
 
-![Analytics](./FrontEnd/public/Analyts.png)
+![Analytics Overview](./FrontEnd/public/Analyts.png)
+![Analytics](./FrontEnd/public/Analyts1.png)
 
 ### QR Code Modal
 
