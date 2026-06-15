@@ -42,6 +42,11 @@ export default function Login({ onAuthSuccess, onToggleAuth }) {
     if (error) setError('');
   };
 
+  const handleFillDemo = () => {
+    setFormData({ email: 'katomaran@gmail.com', password: 'katomaran@1828' });
+    if (error) setError('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = formData;
@@ -131,6 +136,18 @@ export default function Login({ onAuthSuccess, onToggleAuth }) {
             style={{ width: '100%', height: 44, marginTop: 2 }}
           >
             {loading ? <Spinner /> : 'Sign in'}
+          </button>
+
+          <button
+            id="demo-credentials-btn"
+            type="button"
+            onClick={handleFillDemo}
+            disabled={loading}
+            className="btn-secondary"
+            style={{ width: '100%', height: 44, display: 'flex', gap: 7, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <span style={{ fontSize: 16 }}>🔑</span>
+            <span>Use Demo Credentials</span>
           </button>
         </form>
 

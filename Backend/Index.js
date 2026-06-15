@@ -17,13 +17,26 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS configuration to support cookies
-let allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:5173';
-if (typeof allowedOrigin === 'string') {
-  allowedOrigin = allowedOrigin.replace(/\/$/, '');
-}
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:3000'
+].filter(Boolean).map(url => url.replace(/\/$/, ''));
 
 app.use(cors({
-  origin: allowedOrigin,
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    const normalizedOrigin = origin.replace(/\/$/, '');
+    if (allowedOrigins.includes(normalizedOrigin) || process.env.NODE_ENV === 'development') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],

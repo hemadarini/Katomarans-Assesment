@@ -82,6 +82,68 @@ export default function AnalyticsReport({ urlId, onBack }) {
   const getDeviceIcon  = (d) => ({ mobile:'📱', tablet:'📟' }[d?.toLowerCase()] || '💻');
   const getBrowserIcon = (b) => ({ chrome:'🌐', safari:'🧭', firefox:'🦊', edge:'🌐' }[b?.toLowerCase()] || '🔗');
 
+  const CHART_COLORS = [
+    '#4f46e5', // Indigo
+    '#06b6d4', // Cyan
+    '#10b981', // Emerald
+    '#fbbf24', // Amber
+    '#f43f5e', // Rose
+    '#8b5cf6', // Purple
+    '#f97316', // Orange
+  ];
+
+  function DonutChart({ items, total, keyField }) {
+    const radius = 38;
+    const strokeWidth = 8;
+    const circumference = 2 * Math.PI * radius;
+    let accumulatedOffset = 0;
+
+    return (
+      <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', display: 'block' }}>
+        <circle
+          cx="50"
+          cy="50"
+          r={radius}
+          fill="transparent"
+          stroke="var(--bg-muted)"
+          strokeWidth={strokeWidth}
+        />
+        {items.map((item, idx) => {
+          const pct = total ? (item.count / total) * 100 : 0;
+          if (pct <= 0) return null;
+          const strokeLength = (pct / 100) * circumference;
+          const offset = -accumulatedOffset;
+          accumulatedOffset += strokeLength;
+          const color = CHART_COLORS[idx % CHART_COLORS.length];
+
+          return (
+            <circle
+              key={item[keyField]}
+              cx="50"
+              cy="50"
+              r={radius}
+              fill="transparent"
+              stroke={color}
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${strokeLength} ${circumference}`}
+              strokeDashoffset={offset}
+              transform="rotate(-90 50 50)"
+              style={{
+                transition: 'stroke-dashoffset 0.5s ease, stroke-dasharray 0.5s ease',
+              }}
+            />
+          );
+        })}
+        <text x="50" y="47" textAnchor="middle" dominantBaseline="middle" fill="var(--text-primary)" fontSize="13" fontWeight="800" fontFamily="Inter, sans-serif">
+          {total}
+        </text>
+        <text x="50" y="58" textAnchor="middle" dominantBaseline="middle" fill="var(--text-muted)" fontSize="7" fontWeight="700" letterSpacing="0.05em" textTransform="uppercase" fontFamily="Inter, sans-serif">
+          {total === 1 ? 'Visit' : 'Visits'}
+        </text>
+      </svg>
+    );
+  }
+
   const isLinkExpired  = analytics?.expiresAt && new Date() > new Date(analytics.expiresAt);
   const totalClicksVal = analytics?.totalClicks || 0;
 
@@ -196,7 +258,7 @@ export default function AnalyticsReport({ urlId, onBack }) {
         </div>
 
         {/* Browser & Device */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(240px,1fr))', gap:14 }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(320px,1fr))', gap:16 }}>
           {[
             { title:'Visits by Browser', items: analytics?.browserStats || [], keyField:'browser', iconFn: getBrowserIcon },
             { title:'Visits by Device',  items: analytics?.deviceStats  || [], keyField:'device',  iconFn: getDeviceIcon },
@@ -206,22 +268,31 @@ export default function AnalyticsReport({ urlId, onBack }) {
               {!totalClicksVal || !section.items.length ? (
                 <p style={{ fontSize:12, color:'var(--text-placeholder)', fontStyle:'italic', textAlign:'center', padding:'16px 0' }}>No data recorded yet.</p>
               ) : (
-                <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
-                  {section.items.map(item => {
-                    const pct = totalClicksVal ? Math.round((item.count / totalClicksVal) * 100) : 0;
-                    const key = item[section.keyField];
-                    return (
-                      <div key={key}>
-                        <div style={{ display:'flex', justifyContent:'space-between', fontSize:12.5, fontWeight:600, marginBottom:7 }}>
-                          <span style={{ display:'flex', alignItems:'center', gap:7, color:'var(--text-secondary)' }}>
-                            <span style={{ fontSize:15 }}>{section.iconFn(key)}</span>{key}
-                          </span>
-                          <span style={{ color:'var(--text-muted)', fontFamily:'JetBrains Mono, monospace', fontSize:11.5 }}>{item.count} ({pct}%)</span>
+                <div style={{ display:'flex', gap:24, flexWrap:'wrap', alignItems:'center' }}>
+                  {/* Chart Column */}
+                  <div style={{ width:110, height:110, flexShrink:0, margin:'0 auto' }}>
+                    <DonutChart items={section.items} total={totalClicksVal} keyField={section.keyField} />
+                  </div>
+                  {/* Legend Column */}
+                  <div style={{ flex:1, display:'flex', flexDirection:'column', gap:12, minWidth:180 }}>
+                    {section.items.map((item, idx) => {
+                      const pct = totalClicksVal ? Math.round((item.count / totalClicksVal) * 100) : 0;
+                      const key = item[section.keyField];
+                      const color = CHART_COLORS[idx % CHART_COLORS.length];
+                      return (
+                        <div key={key}>
+                          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', fontSize:12.5, fontWeight:600, marginBottom:6 }}>
+                            <span style={{ display:'flex', alignItems:'center', gap:7, color:'var(--text-secondary)' }}>
+                              <span style={{ width:8, height:8, borderRadius:'50%', backgroundColor:color, display:'inline-block', flexShrink:0 }} />
+                              <span style={{ fontSize:15 }}>{section.iconFn(key)}</span>{key}
+                            </span>
+                            <span style={{ color:'var(--text-muted)', fontFamily:'JetBrains Mono, monospace', fontSize:11.5 }}>{item.count} ({pct}%)</span>
+                          </div>
+                          <div className="progress-track"><div className="progress-fill" style={{ width:`${pct}%`, background:color }}/></div>
                         </div>
-                        <div className="progress-track"><div className="progress-fill" style={{ width:`${pct}%` }}/></div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>

@@ -63,7 +63,7 @@ function AuthLayout({ children }) {
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isSignup, setIsSignup] = useState(true);
+  const [isSignup, setIsSignup] = useState(false);
   const [loading, setLoading] = useState(true);
   const [currentPath, setCurrentPath] = useState(window.location.pathname + window.location.search);
 
