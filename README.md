@@ -82,13 +82,12 @@ The problem was broken down into these functional modules before any code was wr
 ### Phase 3 — AI Prompting Strategy
 
 AI tools were used to:
-- Plan database schema (tables: `users`, `urls`, `visits`)
 - Generate Express middleware for JWT verification and silent refresh
 - Write the User-Agent parsing logic for device/browser classification
 - Build custom SVG chart components for analytics visualization
 - Design the glassmorphic QR code modal
 
-All generated code was reviewed, tested, and understood before submission. Prompts used will be explained during the interview.
+
 
 ---
 
