@@ -1,4 +1,4 @@
--- PostgreSQL database migration script for Katomarn Auth
+-- PostgreSQL database migration script for URLytics  Auth
 -- Run this script to create the necessary tables in your PostgreSQL database
 
 -- Create users table if not exists

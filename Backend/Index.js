@@ -17,8 +17,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS configuration to support cookies
+let allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:5173';
+if (typeof allowedOrigin === 'string') {
+  allowedOrigin = allowedOrigin.replace(/\/$/, '');
+}
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: allowedOrigin,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
@@ -39,7 +44,7 @@ app.use('/api/urls', urlRoutes);
 app.get('/', (req, res) => {
   res.json({
     success: true,
-    message: 'Welcome to the Katomarn Auth and URL Shortener API. Please reference api_documentation.md in the backend folder.',
+    message: 'Welcome to the URLytics  Auth and URL Shortener API. Please reference api_documentation.md in the backend folder.',
   });
 });
 

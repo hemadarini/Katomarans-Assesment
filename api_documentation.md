@@ -1,6 +1,6 @@
-# Katomarn Authentication & URL Shortener - API Documentation
+# URLytics  Authentication & URL Shortener - API Documentation
 
-Base URL: `http://localhost:5000`
+Base URL: `https://s-jgt9.onrender.com`
 
 ---
 
@@ -139,7 +139,7 @@ Creates a unique short code for a long URL, sets an optional expiry date, and re
       "id": 15,
       "originalUrl": "https://www.google.com/search?q=fullstack+developer+jobs+near+me",
       "shortCode": "a3b8cd",
-      "shortUrl": "http://localhost:5000/s/a3b8cd",
+      "shortUrl": "https://s-jgt9.onrender.com/s/a3b8cd",
       "clicks": 0,
       "expiresAt": "2026-06-20T23:59:00.000Z",
       "createdAt": "2026-06-14T23:25:00.000Z"
@@ -161,7 +161,7 @@ Retrieves all URLs shortened by the current logged-in user.
         "id": 15,
         "originalUrl": "https://www.google.com/search?q=fullstack+developer+jobs+near+me",
         "shortCode": "a3b8cd",
-        "shortUrl": "http://localhost:5000/s/a3b8cd",
+        "shortUrl": "https://s-jgt9.onrender.com/s/a3b8cd",
         "clicks": 14,
         "createdAt": "2026-06-14T23:25:00.000Z"
       }
@@ -202,7 +202,7 @@ Retrieves granular analytics details for a specific shortened URL, including cli
       "id": 15,
       "originalUrl": "https://www.google.com/search?q=fullstack+developer+jobs+near+me",
       "shortCode": "a3b8cd",
-      "shortUrl": "http://localhost:5000/s/a3b8cd",
+      "shortUrl": "https://s-jgt9.onrender.com/s/a3b8cd",
       "createdAt": "2026-06-14T23:25:00.000Z",
       "expiresAt": "2026-06-20T23:59:00.000Z",
       "totalClicks": 14,

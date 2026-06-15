@@ -201,7 +201,7 @@ export const redirectUrl = async (req, res) => {
           <div style="width: 70px; height: 70px; background-color: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #EF4444; font-size: 32px; font-weight: bold; margin-bottom: 24px;">!</div>
           <h1 style="color: #F1F5F9; font-size: 32px; font-weight: 800; margin: 0 0 12px 0; letter-spacing: -0.025em;">Link Expired</h1>
           <p style="color: #94A3B8; font-size: 16px; max-width: 420px; margin: 0 0 32px 0; line-height: 1.6;">This shortened link reached its expiration timeline on ${new Date(expires_at).toLocaleString()} and has been archived.</p>
-          <div style="font-size: 12px; color: #475569;">Katomarn URL Redirector Server</div>
+          <div style="font-size: 12px; color: #475569;">URLytics  URL Redirector Server</div>
         </div>
       `);
     }

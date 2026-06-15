@@ -1,12 +1,16 @@
-const IconLink = ({ size = 20 }) => (
+const IconLink = ({ size = 18 }) => (
   <svg width={size} height={size} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
     <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.1-1.1M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
   </svg>
 );
-
-const IconLogout = ({ size = 13 }) => (
+const IconChart = ({ size = 18 }) => (
   <svg width={size} height={size} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 7v1" />
+    <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>
+);
+const IconLogout = ({ size = 14 }) => (
+  <svg width={size} height={size} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
   </svg>
 );
 
@@ -14,56 +18,82 @@ export default function Header({ user, onLogout, currentPath }) {
   const isAnalytics = currentPath && (currentPath.startsWith('/analytics') || currentPath.startsWith('/analyts'));
 
   const initials = (user?.name || 'U')
-    .split(' ')
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
+    .split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-800 bg-[#070d1e]/85 backdrop-blur-md px-6 py-4 flex items-center justify-between">
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-violet-600/30">
-          {isAnalytics ? (
-            <svg width={20} height={20} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          ) : (
-            <IconLink size={20} />
-          )}
+    <header style={{
+      position: 'sticky', top: 0, zIndex: 40,
+      background: 'rgba(255,255,255,0.92)',
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)',
+      borderBottom: '1px solid var(--border-light)',
+      padding: '0 28px',
+      height: 60,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      boxShadow: 'var(--shadow-sm)',
+    }}>
+      {/* Left: Brand */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{
+          width: 36, height: 36, borderRadius: 10,
+          background: 'var(--accent-600)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          boxShadow: 'var(--shadow-accent)',
+          flexShrink: 0,
+        }}>
+          {isAnalytics ? <IconChart size={16} /> : <IconLink size={16} />}
         </div>
         <div>
-          <div className="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-350 bg-clip-text text-transparent">
-            Katomarn
+          <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--text-primary)', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            URLytics 
           </div>
-          <div className="text-[10px] text-violet-400 font-bold tracking-widest uppercase">
-            {isAnalytics ? 'URL Intelligence Report' : 'URL Management Platform'}
+          <div style={{ fontSize: 10, fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            {isAnalytics ? 'Analytics Report' : 'URL Management'}
           </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        {/* Profile Details */}
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex flex-col text-right">
-            <span className="text-xs font-bold text-slate-200">{user?.name}</span>
-            <span className="text-[10px] text-slate-500 font-medium">{user?.email}</span>
-          </div>
-
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-violet-600 to-fuchsia-600 flex items-center justify-center font-bold text-xs text-white shadow-md select-none">
+      {/* Right: user + logout */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        {/* Avatar + name */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 32, height: 32, borderRadius: 8,
+            background: 'var(--accent-600)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 11, fontWeight: 800, color: 'white',
+            letterSpacing: '0.03em', flexShrink: 0,
+          }}>
             {initials}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.2 }}>{user?.name}</span>
+            <span style={{ fontSize: 11, color: 'var(--text-muted)', lineHeight: 1.2 }}>{user?.email}</span>
           </div>
         </div>
 
-        <div className="w-px h-6 bg-slate-805" />
+        {/* Divider */}
+        <div style={{ width: 1, height: 24, background: 'var(--border-base)' }} />
 
-        {/* Logout Button */}
+        {/* Logout */}
         <button
+          id="logout-button"
           onClick={onLogout}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/15 text-rose-400 hover:text-rose-350 transition-all text-xs font-bold cursor-pointer"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: 6,
+            padding: '7px 14px', borderRadius: 8,
+            border: '1px solid var(--border-base)',
+            background: 'var(--bg-white)',
+            color: 'var(--text-secondary)',
+            fontSize: 13, fontWeight: 600,
+            cursor: 'pointer', transition: 'all 0.15s ease',
+            fontFamily: 'Inter, sans-serif',
+          }}
+          onMouseOver={e => { e.currentTarget.style.background = 'var(--error-bg)'; e.currentTarget.style.borderColor = 'var(--error-border)'; e.currentTarget.style.color = 'var(--error-text)'; }}
+          onMouseOut={e => { e.currentTarget.style.background = 'var(--bg-white)'; e.currentTarget.style.borderColor = 'var(--border-base)'; e.currentTarget.style.color = 'var(--text-secondary)'; }}
         >
           <IconLogout size={13} />
-          <span className="hidden sm:inline">Log Out</span>
+          <span>Log out</span>
         </button>
       </div>
     </header>
