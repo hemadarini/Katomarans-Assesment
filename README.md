@@ -9,7 +9,7 @@
 | Resource | Link |
 |----------|------|
 | 🌐 **Live Application** | [shorturl-wine.vercel.app](https://shorturl-wine.vercel.app) |
-| 🎬 **Demo Video (YouTube)** | [Watch Video](https://youtu.be/rOKubaCLYu0?si=6aX0PF2EI7vey7wz) |
+| 🎬 **Demo Video (YouTube)** | [Watch Video](https://youtu.be/rhg3ilG9iR4) |
 | 💻 **GitHub Repository** | [Katomarans-Assesment](https://github.com/hemadarini/Katomarans-Assesment) |
 
 ---
