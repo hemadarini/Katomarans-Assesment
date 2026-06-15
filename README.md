@@ -348,7 +348,6 @@ Full payload schemas and response formats are documented in `Backend/api_documen
 
 ## Sample Output
 
-> 📸 **Note:** Replace the placeholders below with actual screenshots from your running application before submission.
 
 ### Dashboard View
 
