@@ -8,9 +8,11 @@
 
 | Resource | Link |
 |----------|------|
-| 🌐 **Live Application** | [https://shorturl-wine.vercel.app](https://shorturl-wine.vercel.app) |
-| 🎬 **Demo Video (YouTube)** | [<I will replace it>](#) |
-| 💻 **GitHub Repository** | [https://github.com/hemadarini/Katomarans-Assesment](https://github.com/hemadarini/Katomarans-Assesment) |
+| Resource | Link |
+|----------|------|
+| 🌐 **Live Application** | [shorturl-wine.vercel.app](https://shorturl-wine.vercel.app) |
+| 🎬 **Demo Video (YouTube)** | [Watch Video](https://youtu.be/rOKubaCLYu0?si=6aX0PF2EI7vey7wz) |
+| 💻 **GitHub Repository** | [Katomarans-Assesment](https://github.com/hemadarini/Katomarans-Assesment) |
 
 ---
 
